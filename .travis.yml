@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services:
+    - docker
+
+before_install:
+    - echo "start createing"
+    - docker build -t dudckd/travis -f dockerfile.dev .
+
+script:
+    - docker run -e CI=true dudckd/travis npm run test -- --coverage
+
+after_success:
+    - echo "Test Successs"
